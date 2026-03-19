@@ -1,0 +1,294 @@
+================================================================================
+                    JANASEWA (जनसेवा) — FEATURE DOCUMENTATION
+              Public Grievance Reporting Platform for Kathmandu, Nepal
+================================================================================
+
+PROJECT OVERVIEW
+----------------
+JanaSewa ("Public Service" in Nepali) is a mobile-first, citizen-powered
+grievance reporting platform designed for the residents of Kathmandu
+Metropolitan City. Citizens can report local infrastructure issues — such as
+road damage, water supply problems, electricity failures, garbage pile-ups,
+and drainage blockages — and track their resolution in real time through a
+transparent public dashboard.
+
+Tagline: "तपाईंको आवाज, तपाईंको शहर" (Your Voice, Your City)
+
+
+================================================================================
+                              COMPLETE FEATURE LIST
+================================================================================
+
+1. AUTHENTICATION & USER MANAGEMENT
+   ---------------------------------
+   • Phone-based login with +977 (Nepal) country code prefix
+   • OTP (One-Time Password) verification flow (demo-ready with any 4-digit code)
+   • Persistent user session via localStorage
+   • Secure logout functionality
+   • Session state management across app navigation
+
+2. PUBLIC DASHBOARD
+   -----------------
+   • Real-time statistics display:
+       - Total number of reported grievances
+       - Resolution rate (percentage)
+       - Number of currently active (unresolved) issues
+   • Grievance feed with interactive cards showing:
+       - Issue category with color-coded icon
+       - Status badge (Pending / In Progress / Resolved)
+       - Issue title and truncated description (100 chars)
+       - Ward location with map pin icon
+       - Relative time (e.g., "3 days ago", "2 hr ago", "Just now")
+       - Upvote count
+
+3. ADVANCED FILTERING & SORTING
+   ------------------------------
+   • Status filter tabs: All | Pending | In Progress | Resolved
+   • Real-time count badges on each status tab
+   • Expandable filter panel with:
+       - Category filter (Road, Water, Electricity, Garbage, Drainage, Other)
+       - Ward filter (all 32 wards of Kathmandu)
+   • Sort options:
+       - Newest first (chronological)
+       - Most Upvoted (popularity)
+
+4. GRIEVANCE REPORTING (Issue Submission)
+   ----------------------------------------
+   • Category selection grid with 6 categories:
+       - Road Damage (🚧 Construction icon, red)
+       - Water Supply (💧 Droplets icon, blue)
+       - Electricity (⚡ Zap icon, amber)
+       - Garbage (🗑️ Trash icon, green)
+       - Drainage (🌊 Waves icon, purple)
+       - Other (❓ Help icon, gray)
+   • Issue title input with validation
+   • Detailed description textarea with validation
+   • Photo upload with:
+       - File picker supporting image/* formats
+       - Camera capture support (mobile)
+       - Live image preview with re-capture overlay
+   • Interactive location picker:
+       - Leaflet map with tap-to-set-pin functionality
+       - GPS/geolocation auto-detect ("Use My Location")
+       - Defaults to Kathmandu center (27.7172, 85.3240) if GPS fails
+   • Ward selection dropdown (all 32 Kathmandu wards)
+   • Form validation with visual error indicators
+   • Submission animation with success confirmation screen
+
+5. GRIEVANCE DETAIL VIEW
+   -----------------------
+   • Full grievance information display
+   • Photo viewer (if photo was uploaded)
+   • Category and status indicators
+   • Status stepper/timeline showing:
+       - Pending → In Progress → Resolved progression
+       - Date stamps for each status transition
+       - Color-coded completion states
+   • Full description text
+   • Embedded Leaflet map showing exact issue location
+   • Action buttons:
+       - Upvote (with one-per-user restriction and pulse animation)
+       - Share (via Web Share API on supported devices)
+
+6. INTERACTIVE MAP VIEW
+   ----------------------
+   • Full-screen Leaflet map centered on Kathmandu
+   • Color-coded custom markers:
+       - Amber pin = Pending
+       - Blue pin = In Progress
+       - Green pin = Resolved
+   • Custom teardrop-shaped marker design with inner dot
+   • Clickable markers with popup cards showing:
+       - Issue title
+       - Ward name
+       - Truncated description (80 chars)
+       - "View Details" navigation button
+   • Status filter chips overlay on the map
+   • Map legend showing color meanings
+
+7. USER PROFILE
+   -------------
+   • User avatar and phone number display
+   • "My Reports" section listing all user-submitted grievances
+   • Each report shows category icon, title, time, status badge
+   • Click-through navigation to report detail view
+   • Report count indicator
+   • Logout button
+
+8. BILINGUAL SUPPORT (i18n — Internationalization)
+   -------------------------------------------------
+   • Full Nepali (नेपाली) language support
+   • Full English language support
+   • One-tap language toggle in the header
+   • Language preference persisted via localStorage
+   • 79 translation keys covering all UI text
+   • Context-aware React hook (useTranslation)
+
+9. UPVOTE / COMMUNITY ENGAGEMENT SYSTEM
+   ---------------------------------------
+   • One-vote-per-user restriction (tracked per grievance ID)
+   • Upvote state persisted in localStorage
+   • Visual feedback with pulse animation on vote
+   • Upvote count displayed on cards and detail view
+   • Sorting by most upvoted for issue prioritization
+
+10. DATA MANAGEMENT & PERSISTENCE
+    --------------------------------
+    • localStorage-based data store (offline-capable)
+    • Pre-seeded with 10 realistic Kathmandu grievances
+    • Automatic data initialization on first visit
+    • CRUD operations: Create, Read grievances
+    • Upvote tracking with separate storage key
+    • User session management
+    • Statistics computation (total, resolved, active, rate)
+    • Relative time formatting utility
+
+11. UI/UX DESIGN FEATURES
+    -----------------------
+    • Mobile-first responsive design
+    • Dark theme with deep navy/black background (#0a0e1a)
+    • Glassmorphism effects on cards and panels
+    • Smooth fade-in page transitions (CSS animations)
+    • Micro-interactions: button hover effects, pulse on upvote
+    • Status color system:
+        - Amber (#f59e0b) for Pending
+        - Blue (#3b82f6) for In Progress
+        - Green (#10b981) for Resolved
+        - Red (#ef4444) for alerts/totals
+    • Category color-coded icon system
+    • Bottom navigation bar with active state indicators
+    • PWA-ready meta tags (theme-color, apple-mobile-web-app-capable)
+    • Viewport locked (no user scaling) for app-like experience
+
+12. SEO & META
+    -----------
+    • Descriptive <title> tag: "JanaSewa — जनसेवा | Public Grievance Platform"
+    • Meta description for search engines
+    • Theme color meta tag (#0a0e1a)
+    • Apple mobile web app meta tags
+    • Favicon using SVG emoji (🏛️)
+
+
+================================================================================
+                              TECHNOLOGY STACK
+================================================================================
+
+CATEGORY              | TECHNOLOGY            | VERSION    | PURPOSE
+----------------------|-----------------------|------------|-----------------------
+Frontend Framework    | React                 | 19.2.4     | Component-based UI
+Build Tool            | Vite                  | 8.0.1      | Dev server & bundling
+Language              | JavaScript (ES2022+)  | ESM        | Application logic
+Styling               | Vanilla CSS           | CSS3       | Custom design system
+Mapping               | Leaflet               | 1.9.4      | Interactive maps
+React Map Binding     | React-Leaflet         | 5.0.0      | React wrapper for maps
+Map Tiles             | OpenStreetMap          | --         | Free map tile provider
+Icons                 | Lucide React          | 0.577.0    | SVG icon library
+Linting               | ESLint                | 9.39.4     | Code quality
+React Plugin (Vite)   | @vitejs/plugin-react  | 6.0.1      | React Fast Refresh
+Package Manager       | npm                   | --         | Dependency management
+Version Control       | Git                   | 2.42.0     | Source control
+Hosting               | GitHub                | --         | Repository hosting
+Data Storage          | localStorage (Web API)| --         | Client-side persistence
+Geolocation           | Navigator API         | --         | GPS coordinates
+Sharing               | Web Share API         | --         | Native share dialog
+i18n                  | Custom (React Context)| --         | Bilingual translations
+
+
+================================================================================
+                           PROJECT STRUCTURE
+================================================================================
+
+JanaSewa/
+├── index.html                  # Entry HTML with meta tags & Leaflet CSS
+├── package.json                # Dependencies and scripts
+├── vite.config.js              # Vite configuration with React plugin
+├── .gitignore                  # Git ignore rules
+├── README.md                   # Project documentation
+├── FEATURES.txt                # This file
+├── public/                     # Static assets
+└── src/
+    ├── main.jsx                # React entry point
+    ├── App.jsx                 # Root component with routing logic
+    ├── index.css               # Complete design system & styles
+    ├── components/
+    │   ├── Header.jsx          # App header with branding & language toggle
+    │   ├── BottomNav.jsx       # Bottom navigation bar (4 tabs)
+    │   ├── GrievanceCard.jsx   # Grievance list item card
+    │   ├── StatusBadge.jsx     # Status indicator component
+    │   └── CategoryIcon.jsx    # Category icon with color mapping
+    ├── pages/
+    │   ├── LoginPage.jsx       # Phone + OTP authentication
+    │   ├── DashboardPage.jsx   # Main feed with stats & filters
+    │   ├── ReportPage.jsx      # Issue reporting form
+    │   ├── DetailPage.jsx      # Single grievance detail view
+    │   ├── MapPage.jsx         # Full-screen map view
+    │   └── ProfilePage.jsx     # User profile & my reports
+    ├── data/
+    │   └── store.js            # Data store, CRUD, seed data, utilities
+    └── i18n/
+        ├── LanguageContext.jsx  # React Context for translations
+        ├── en.json             # English translations (79 keys)
+        └── ne.json             # Nepali translations (79 keys)
+
+
+================================================================================
+                           ISSUE CATEGORIES
+================================================================================
+
+CATEGORY      | ICON         | COLOR    | DESCRIPTION
+--------------|--------------|----------|-----------------------------------
+Road Damage   | Construction | #ef4444  | Potholes, road collapse, cracks
+Water Supply  | Droplets     | #3b82f6  | Pipe bursts, no supply, contamination
+Electricity   | Zap          | #f59e0b  | Outages, broken lights, faulty lines
+Garbage       | Trash2       | #10b981  | Pile-ups, illegal dumping, no pickup
+Drainage      | Waves        | #8b5cf6  | Blocked drains, sewage overflow
+Other         | HelpCircle   | #6b7280  | Miscellaneous civic issues
+
+
+================================================================================
+                          SEED DATA LOCATIONS
+================================================================================
+
+# PRE-LOADED GRIEVANCES (10 reports across Kathmandu)
+1.  Ring Road near Kalanki       — Ward 14  (Road, In Progress)
+2.  Baluwatar                    — Ward 4   (Water, Pending)
+3.  Lazimpat                     — Ward 3   (Electricity, Resolved)
+4.  Teku Junction                — Ward 12  (Garbage, Pending)
+5.  New Baneshwor                — Ward 10  (Drainage, In Progress)
+6.  Patan Durbar Square          — Ward 18  (Road, Pending)
+7.  Maharajgunj                  — Ward 3   (Electricity, Resolved)
+8.  Koteshwor                    — Ward 32  (Drainage, Pending)
+9.  Thapathali (Bagmati River)   — Ward 11  (Garbage, In Progress)
+10. Jawalakhel                   — Ward 21  (Water, In Progress)
+
+
+================================================================================
+                          NPM SCRIPTS
+================================================================================
+
+COMMAND           | DESCRIPTION
+------------------|--------------------------------------------
+npm run dev       | Start Vite development server (localhost:5173)
+npm run build     | Build production bundle to /dist
+npm run preview   | Preview production build locally
+npm run lint      | Run ESLint for code quality checks
+
+
+================================================================================
+                          FUTURE ROADMAP
+================================================================================
+
+• Backend API integration (Node.js/Express or Firebase)
+• Real OTP verification via SMS gateway
+• Admin dashboard for government officials
+• Push notifications for status updates
+• Image compression and cloud storage
+• Offline-first with Service Worker (full PWA)
+• Ward-level analytics and heatmaps
+• Government department auto-routing
+• Comment/reply system on grievances
+• Accessibility (WCAG 2.1 AA) compliance
+
+================================================================================
+                         END OF DOCUMENT
+================================================================================
